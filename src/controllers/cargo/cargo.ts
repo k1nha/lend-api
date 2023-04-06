@@ -9,7 +9,7 @@ export class CargoController {
     }
 
     return {
-      statusCode: 400,
+      statusCode: 404,
       body: 'Missing params',
     };
   }
