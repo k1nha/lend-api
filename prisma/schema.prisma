@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  register_key  String  @id
+  name          String
+  Role          Role    @relation(fields: [role_id], references: [id])
+  role_id       String
+  OrderDelivery Order[]
+  OrderReturned Order[] @relation(name: "returned")
+}
+
+model Role {
+  id       String     @id @default(uuid())
+  name     String
+  Employee Employee[]
+}
+
+model Order {
+  id               String        @id @default(uuid())
+  date             DateTime
+  shift            String //turno
+  class            String //turma
+  devolution       DateTime?
+  delivery_by      String
+  returned_by      String
+  EmployeeDelivery Employee      @relation(fields: [delivery_by], references: [register_key])
+  EmployeeReturned Employee      @relation(fields: [delivery_by], references: [register_key], name: "returned")
+  OrderDetail      OrderDetail[]
+}
+
+model Product {
+  patrimony_key String        @id
+  name          String
+  descriptions  String?
+  Category      Category      @relation(fields: [category_id], references: [id])
+  category_id   String
+  OrderDetail   OrderDetail[]
+}
+
+model Category {
+  id      String    @id @default(uuid())
+  name    String
+  Product Product[]
+}
+
+model OrderDetail {
+  id          String  @id @default(uuid())
+  order_id    String
+  product_key String
+  Order       Order   @relation(fields: [order_id], references: [id])
+  Product     Product @relation(fields: [product_key], references: [patrimony_key])
+}
+
+// model Login {
+//   username String @unique
+//   password String
+// }
