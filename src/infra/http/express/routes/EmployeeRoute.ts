@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { EmployeeController } from '../../../../domain/controller';
 
-const EmploeyeRouter = Router();
-const prismaEmployee = new EmployeeController();
+const EmployeeRouter = Router();
+const employeeController = new EmployeeController();
 
-EmploeyeRouter.get('/', prismaEmployee.findAll);
-EmploeyeRouter.post('/', prismaEmployee.create);
-EmploeyeRouter.patch('/:id');
-EmploeyeRouter.delete('/:id');
+EmployeeRouter.get('/', employeeController.findAll);
+EmployeeRouter.post('/', employeeController.create);
+EmployeeRouter.patch('/:id');
+EmployeeRouter.delete('/:id');
 
-export { EmploeyeRouter };
+export { EmployeeRouter };

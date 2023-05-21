@@ -2,10 +2,11 @@ import { Router } from 'express';
 import { RoleController } from '../../../../domain/controller/';
 
 const RoleRouter = Router();
-const prismaRole = new RoleController()
+const roleController = new RoleController();
 
-RoleRouter.get('/', prismaRole.findAll);
-RoleRouter.post('/', prismaRole.create);
+RoleRouter.get('/', roleController.findAll);
+RoleRouter.post('/', roleController.create);
+RoleRouter.delete('/:id', roleController.delete);
+RoleRouter.patch('/:id', roleController.update)
 
 export { RoleRouter };
-
