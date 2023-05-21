@@ -1,7 +1,6 @@
 import express, { Application } from 'express';
-import { EmploeyeRouter } from './routes';
+import { EmployeeRouter, CategoryRouter, RoleRouter } from './routes';
 import morgan from 'morgan';
-import { RoleRouter } from './routes/RoleRoute';
 
 export default class Server {
   public server: Application;
@@ -18,7 +17,8 @@ export default class Server {
   }
 
   private useRoutes() {
-    this.server.use('/employee', EmploeyeRouter);
+    this.server.use('/employee', EmployeeRouter);
     this.server.use('/role', RoleRouter);
+    this.server.use('/category', CategoryRouter);
   }
 }
