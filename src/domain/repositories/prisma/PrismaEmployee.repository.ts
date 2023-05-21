@@ -1,23 +1,26 @@
-import EmployeeEntity from '../../entity/Employee.entity';
+import { PrismaClient } from '@prisma/client';
+import { EmployeeEntity } from '../../entity/';
 import { EmployeeRepository } from '../employee/Employee.repository';
-import prisma from '../../../infra/db/prisma';
 
 class PrismaEmployeeRepository implements EmployeeRepository {
+  constructor(private readonly prisma: PrismaClient) {}
   async create(employee: EmployeeEntity): Promise<EmployeeEntity | void> {
-    const createdEmployee = await prisma.employee.create({
+    const createdEmployee = await this.prisma.employee.create({
       data: {
-        name: employee.props.name,
-        register_key: employee.props.register_key,
-        role_id: employee.props.role_id,
+        name: employee.name,
+        register_key: employee.register_key,
+        role_id: employee.role_id,
       },
     });
   }
 
-  async getAll(): Promise<EmployeeEntity[]> { }
+  async findAll(): Promise<EmployeeEntity[]> {
+    return await this.prisma.employee.findMany({});
+  }
 
-  async delete(): Promise<void> { }
+  async delete(id: string): Promise<void> {}
 
-  async update(id: string, employee: EmployeeEntity): Promise<void> { }
+  async update(id: string, employee: EmployeeEntity): Promise<void> {}
 }
 
 export default PrismaEmployeeRepository;

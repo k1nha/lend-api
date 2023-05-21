@@ -1,8 +1,8 @@
-import EmployeeEntity from '../../entity/Employee.entity';
+import { EmployeeEntity } from '../../entity/';
 
 export interface EmployeeRepository {
   create(employee: EmployeeEntity): Promise<EmployeeEntity | void>;
-  getAll(): Promise<EmployeeEntity[]>;
+  findAll(): Promise<EmployeeEntity[]>;
   update(id: string, employee: EmployeeEntity): Promise<void>;
-  delete(): Promise<void>;
+  delete(id: string): Promise<void>;
 }

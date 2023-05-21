@@ -4,11 +4,14 @@ type Employee = {
   role_id: string;
 };
 
-class EmployeeEntity {
-  public props: Employee;
-  constructor(props: Employee) {
-    this.props = props;
+export class EmployeeEntity {
+  public name: string;
+  public register_key: string;
+  public role_id: string;
+
+  constructor({ name, register_key, role_id }: Employee) {
+    this.name = name;
+    this.register_key = register_key;
+    this.role_id = role_id;
   }
 }
-
-export default EmployeeEntity;
