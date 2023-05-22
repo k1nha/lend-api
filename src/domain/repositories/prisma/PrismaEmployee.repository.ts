@@ -18,9 +18,25 @@ class PrismaEmployeeRepository implements EmployeeRepository {
     return await this.prisma.employee.findMany({});
   }
 
-  async delete(id: string): Promise<void> {}
+  async delete(id: string): Promise<void> {
+    await this.prisma.employee.delete({
+      where: {
+        register_key: id,
+      },
+    });
+  }
 
-  async update(id: string, employee: EmployeeEntity): Promise<void> {}
+  async update(id: string, employee: EmployeeEntity): Promise<void> {
+    await this.prisma.employee.update({
+      where: {
+        register_key: id,
+      },
+      data: {
+        name: employee.name,
+        role_id: employee.role_id,
+      },
+    });
+  }
 }
 
 export default PrismaEmployeeRepository;
