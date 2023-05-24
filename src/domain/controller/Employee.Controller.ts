@@ -9,7 +9,7 @@ export class EmployeeController {
     try {
       const body = req.body;
 
-      await PrismaEmployee.create(body);
+      await PrismaEmployee.create(body);  
 
       return res.status(201).json({
         data: {
@@ -24,6 +24,31 @@ export class EmployeeController {
   async findAll(req: Request, res: Response) {
     try {
       const rep = await PrismaEmployee.findAll();
+      return res.status(200).json(rep);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    try {
+      const body = req.body;
+      const id = req.params.id;
+
+      const rep = await PrismaEmployee.update(id, body);
+
+      return res.status(200).json(rep);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  }
+
+  async delete(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+
+      const rep = await PrismaEmployee.delete(id);
+
       return res.status(200).json(rep);
     } catch (e) {
       res.status(400).send(e);
